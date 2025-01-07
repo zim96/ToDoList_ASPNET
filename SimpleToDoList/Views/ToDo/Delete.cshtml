@@ -1,0 +1,39 @@
+@model DeleteViewModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Delete ToDo</h2>
+        </div>
+        <div asp-validation-summary="All"></div>
+        <input type="hidden" asp-for="TD.Id" />
+        <div class="mb-3">
+            <label asp-for="TD.Name"></label>
+            <input asp-for="TD.Name" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label asp-for="TD.Description"></label>
+            <input asp-for="TD.Description" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label asp-for="TD.Status"></label>
+            <select asp-for="TD.Status" asp-items="Html.GetEnumSelectList<StatusType>()" class="form-control" disabled>
+                <option disabled>Select type...</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <p>You are about to delete this ToDo. Please type `delete` to confirm</p>
+            <input class="form-control" placeholder="delete" asp-for="DeleteConfirmation" />
+            <span asp-validation-for="DeleteConfirmation" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-controller="ToDo" asp-action="Index" class="btn btn-secondary">Go Back</a>
+    </div>
+</form>
+
+@section Scripts{
+    @{ <partial name="_ValidationScriptsPartial" /> }
+}
